@@ -1,0 +1,70 @@
+[
+  {
+    "ContainingType": "WebApplication1.Controllers.OrderController",
+    "Method": "CreateOrder",
+    "RelativePath": "Order/create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "orderQty",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.OrderController",
+    "Method": "DeleteOrder",
+    "RelativePath": "Order/DeleteOrder",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.OrderController",
+    "Method": "IndexOrder",
+    "RelativePath": "Order/GetAllOrder",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.OrderController",
+    "Method": "GetSingleOrder",
+    "RelativePath": "Order/GetSingleOrderEvents",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "WebApplication1.Controllers.OrderController\u002BGetSingleEventsOrder",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.OrderController",
+    "Method": "UpdateOrder",
+    "RelativePath": "Order/ModifyOrder",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "WebApplication1.Controllers.OrderController\u002BModifyOrder",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]
