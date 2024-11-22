@@ -8,6 +8,7 @@ namespace WebApplication1.Controllers
     [Route("[controller]")]
     public class OrderController : Controller
     {
+        //Model schema for API
         public class CreateOrderRequest
         {
             public int OrderQty { get; set; }
@@ -16,7 +17,6 @@ namespace WebApplication1.Controllers
         public class ModifyOrder
         {
             public Guid OrderId { get; set; }
-            public Guid CustomerId { get; set; }
             public int NewOrderQty { get; set; }
         }
 
@@ -31,7 +31,8 @@ namespace WebApplication1.Controllers
         {
             _commandHandler = handler;
         }
-
+        
+        // API REST
         [HttpGet("GetAllOrder")]
         public async Task<IActionResult> IndexOrder()
         {
@@ -76,7 +77,7 @@ namespace WebApplication1.Controllers
         [HttpPut("ModifyOrder")]
         public async Task<IActionResult> UpdateOrder([FromBody] ModifyOrder request)
         {
-            if (request == null || request.OrderId == Guid.Empty || request.CustomerId == Guid.Empty || request.NewOrderQty <= 0)
+            if (request == null || request.OrderId == Guid.Empty || request.NewOrderQty <= 0)
             {
                 return BadRequest("Invalid request data.");
             }

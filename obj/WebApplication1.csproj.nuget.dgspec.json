@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\_PROJ_VISUALSTUDIO\\_WEB\\DDD+WEB\\WebApplication1\\WebApplication1\\WebApplication1.csproj": {}
+    "C:\\_PROJ_VISUALSTUDIO\\_WEB\\DDD+WEB\\DDD_FullExampleMongoDb\\WebAppDDDMongo\\WebApplication1.csproj": {}
   },
   "projects": {
-    "C:\\_PROJ_VISUALSTUDIO\\_WEB\\DDD+WEB\\WebApplication1\\WebApplication1\\WebApplication1.csproj": {
+    "C:\\_PROJ_VISUALSTUDIO\\_WEB\\DDD+WEB\\DDD_FullExampleMongoDb\\WebAppDDDMongo\\WebApplication1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\_PROJ_VISUALSTUDIO\\_WEB\\DDD+WEB\\WebApplication1\\WebApplication1\\WebApplication1.csproj",
+        "projectUniqueName": "C:\\_PROJ_VISUALSTUDIO\\_WEB\\DDD+WEB\\DDD_FullExampleMongoDb\\WebAppDDDMongo\\WebApplication1.csproj",
         "projectName": "WebApplication1",
-        "projectPath": "C:\\_PROJ_VISUALSTUDIO\\_WEB\\DDD+WEB\\WebApplication1\\WebApplication1\\WebApplication1.csproj",
+        "projectPath": "C:\\_PROJ_VISUALSTUDIO\\_WEB\\DDD+WEB\\DDD_FullExampleMongoDb\\WebAppDDDMongo\\WebApplication1.csproj",
         "packagesPath": "C:\\Users\\utente\\.nuget\\packages\\",
-        "outputPath": "C:\\_PROJ_VISUALSTUDIO\\_WEB\\DDD+WEB\\WebApplication1\\WebApplication1\\obj\\",
+        "outputPath": "C:\\_PROJ_VISUALSTUDIO\\_WEB\\DDD+WEB\\DDD_FullExampleMongoDb\\WebAppDDDMongo\\obj\\",
         "projectStyle": "PackageReference",
         "UsingMicrosoftNETSdk": false,
         "fallbackFolders": [
@@ -50,6 +50,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "MongoDB.Driver": {
+              "target": "Package",
+              "version": "[3.0.0, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.6.2, )"

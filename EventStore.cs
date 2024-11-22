@@ -1,16 +1,11 @@
-﻿using Microsoft.Extensions.Logging;
-using System.Collections.Concurrent;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using Microsoft.AspNetCore.Http.HttpResults;
-using WebApplication1.Events;
+﻿using WebApplication1.Events;
+using MongoDB.Driver;
 
 namespace WebApplication1
 {
     public interface IEventStore
     {
         Task SaveEventStoreAsync(Event @event);
-        Task<AggregateRoot> GetEventStoreAsync(Guid orderId);
         Task<IEnumerable<Event>> GetEventListAsync(Guid orderId);
     }
 
@@ -32,29 +27,13 @@ namespace WebApplication1
             _store[@event.StreamId].Add(@event.CreatedAt, @event);
             return Task.CompletedTask;
         }
-
-
-        
-        public Task<AggregateRoot> GetEventStoreAsync(Guid orderId)
-        {
-            if (!_store.TryGetValue(orderId, out var orderEvents))
-            {
-                return Task.FromResult<AggregateRoot>(null);
-            }
-            var order = new AggregateRoot();
-            foreach (var orderEvent in orderEvents)
-            {
-                order.Apply(orderEvent.Value); // Applica evento per evento
-            }
-            return Task.FromResult(order); // Restituisce l'aggregate root.
-        }
         
         
         public Task<IEnumerable<Event>> GetEventListAsync(Guid orderId)
         {
             if (!_store.TryGetValue(orderId, out var orderEvents))
             {
-                return Task.FromResult<IEnumerable<Event>>(Enumerable.Empty<Event>());
+                return Task.FromResult<IEnumerable<Event>>([]);
             }
 
             return Task.FromResult(orderEvents.Select(e => e.Value));
@@ -64,6 +43,64 @@ namespace WebApplication1
 
 
 
+    }
+
+    public class MongoDbEventStore : IEventStore
+    {
+        private readonly IMongoCollection<Event> _mongoStore;
+        public MongoDbEventStore(IMongoClient mongoClient)
+        {
+            if (mongoClient == null)
+            {
+                throw new ArgumentNullException(nameof(mongoClient));
+            }
+
+            var database = mongoClient.GetDatabase("OrderEventStore");
+            _mongoStore = database.GetCollection<Event>("Events");
+        }
+
+        public async Task SaveEventStoreAsync(Event @event)
+        {
+            if (@event == null)
+            {
+                throw new ArgumentNullException(nameof(@event));
+            }
+            
+            @event.CreatedAt = DateTime.Now;
+            try
+            {
+                await _mongoStore.InsertOneAsync(@event);
+                Console.WriteLine($"Event saved to MongoDB, orderId: {@event.StreamId}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Errore durante il salvataggio in mongoDb: {ex.Message}");
+            }
+
+        }
+        
+        
+        public async Task<IEnumerable<Event>> GetEventListAsync(Guid orderId)
+        {
+            try
+            {
+                // Usa "OrderId" come filtro, presente in tutte le sottoclassi
+                var filter = Builders<Event>.Filter.Eq("OrderId", orderId);
+
+                // Esegui la query
+                var result = await _mongoStore.Find(filter).ToListAsync();
+
+                return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+
+        
     }
 
 }

@@ -1,3 +1,7 @@
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
+using MongoDB.Driver;
+
 namespace WebApplication1
 {
     public class Program
@@ -5,12 +9,22 @@ namespace WebApplication1
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
+            
+            // Configura la rappresentazione globale di Guid
+            BsonSerializer.RegisterSerializer(
+                typeof(Guid), 
+                new MongoDB.Bson.Serialization.Serializers.GuidSerializer(GuidRepresentation.Standard)
+            );
+            // Configura il client MongoDB
+            builder.Services.AddSingleton<IMongoClient>(new MongoClient("mongodb://localhost:27017"));
+            
             // Aggiungi i servizi al contenitore di DI
-            builder.Services.AddSingleton<IEventStore, InMemoryEventStore>();
+            builder.Services.AddSingleton<IEventStore, MongoDbEventStore>(); // MongoDB
+            //builder.Services.AddSingleton<IEventStore,InMemoryEventStore>(); // InMemory
             builder.Services.AddSingleton<IEventPublisher, EventPublisher>();
             builder.Services.AddSingleton<IMessageBroker, InMemoryMessageBroker>();
             builder.Services.AddTransient<CommandHandler>();
+            
 
             // Aggiungi il logging
             builder.Services.AddLogging();
