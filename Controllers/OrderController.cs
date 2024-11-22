@@ -104,7 +104,7 @@ namespace WebApplication1.Controllers
 
             try
             {
-                await _commandHandler.HandleDeleteOrderAsync(orderId); // Assicurati di avere un metodo per gestire la cancellazione
+                await _commandHandler.HandleDeleteOrderAsync(orderId); 
                 return Ok("Order deleted successfully.");
             }
             catch (Exception ex)

@@ -39,7 +39,7 @@ namespace WebApplication1
         {
             if (!_store.TryGetValue(orderId, out var orderEvents))
             {
-                return Task.FromResult<AggregateRoot>(null); // Restituisce null in modo sicuro.
+                return Task.FromResult<AggregateRoot>(null);
             }
             var order = new AggregateRoot();
             foreach (var orderEvent in orderEvents)

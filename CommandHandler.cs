@@ -36,7 +36,7 @@ namespace WebApplication1
             // 5. Salva l'aggregate nell'Event Store
             foreach (var @event in aggregateRoot.UncommittedEvents)
             {
-                await _eventStore.SaveEventStoreAsync(@event);  // Passa solo l'evento, non l'intero aggregate
+                await _eventStore.SaveEventStoreAsync(@event);  
             }
 
             // 6. Pubblica gli eventi non commessi
@@ -75,7 +75,7 @@ namespace WebApplication1
             // 4. Salva l'aggregate nell'Event Store
             foreach (var @event in aggregateRoot.UncommittedEvents)
             {
-                await _eventStore.SaveEventStoreAsync(@event);  // Passa solo l'evento, non l'intero aggregate
+                await _eventStore.SaveEventStoreAsync(@event);  
             }
             
             // 5. Pubblica gli eventi

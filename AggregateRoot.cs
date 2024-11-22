@@ -20,8 +20,6 @@ namespace WebApplication1
         public void AddUncommittedEvent(Event @event)
         {
             _uncommittedEvents.Add(@event);
-            // Applicare l'evento subito può non essere sempre una buona idea
-            // Rendi l'Apply separato dalla logica di registrazione
         }
 
         // Pulisci gli eventi non commessi
