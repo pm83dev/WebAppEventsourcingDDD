@@ -32,7 +32,6 @@ namespace WebApplication1
         private void Apply(OrderCreated orderCreated)
         {
             OrderId = orderCreated.OrderId;
-            CustomerId = orderCreated.CustomerId;
             OrderQty = orderCreated.OrderQty;
             CreatedAt = orderCreated.CreatedAt;
         }
@@ -40,7 +39,6 @@ namespace WebApplication1
         private void Apply(OrderUpdated orderUpdated)
         {
             OrderId = orderUpdated.OrderId;
-            CustomerId = orderUpdated.CustomerId;
             OrderQty = orderUpdated.OrderQty;
         }
         

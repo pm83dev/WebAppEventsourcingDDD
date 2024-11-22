@@ -64,9 +64,7 @@ namespace WebApplication1.Controllers
             try
             {
                 var orderId = Guid.Parse("410efa39-917b-45d4-83ff-f9a618d760a3");
-                var customerId = Guid.Parse("410efa39-917b-45d4-83ff-f9a618d760a3");
-
-                await _commandHandler.HandleCreateOrderAsync(orderId, customerId, request.OrderQty);
+                await _commandHandler.HandleCreateOrderAsync(orderId, request.OrderQty);
                 return Ok("Order created successfully.");
             }
             catch (Exception ex)
@@ -85,7 +83,7 @@ namespace WebApplication1.Controllers
 
             try
             {
-                await _commandHandler.HandleUpdateOrderAsync(request.OrderId, request.CustomerId, request.NewOrderQty);
+                await _commandHandler.HandleUpdateOrderAsync(request.OrderId, request.NewOrderQty);
                 return Ok("Order modified successfully.");
             }
             catch (Exception ex)

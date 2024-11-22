@@ -13,7 +13,7 @@ namespace WebApplication1
             _eventPublisher = eventPublisher;
         }
 
-        public async Task HandleCreateOrderAsync(Guid orderId, Guid customerId, int orderQty)
+        public async Task HandleCreateOrderAsync(Guid orderId, int orderQty)
         {
             // 1. Crea un nuovo aggregate o ricostruisci esistente
             var aggregateRoot = new AggregateRoot();
@@ -22,7 +22,6 @@ namespace WebApplication1
             var orderCreatedEvent = new OrderCreated
             {
                 OrderId = orderId,
-                CustomerId = customerId,
                 OrderQty = orderQty,
                 CreatedAt = DateTime.UtcNow
             };
@@ -49,7 +48,7 @@ namespace WebApplication1
             aggregateRoot.ClearUncommittedEvents();
         }
 
-        public async Task HandleUpdateOrderAsync(Guid orderId, Guid customerId, int orderQty)
+        public async Task HandleUpdateOrderAsync(Guid orderId, int orderQty)
         {
             // 1. Ricostruisci l'aggregate dall'Event Store
             var events = await _eventStore.GetEventListAsync(orderId);
@@ -63,7 +62,6 @@ namespace WebApplication1
             var orderUpdatedEvent = new OrderUpdated
             {
                 OrderId = orderId,
-                CustomerId = customerId,
                 OrderQty = orderQty,
                 CreatedAt = DateTime.UtcNow
             };

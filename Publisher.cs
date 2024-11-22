@@ -1,4 +1,6 @@
-﻿using WebApplication1.Events;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization.Metadata;
+using WebApplication1.Events;
 
 namespace WebApplication1;
 
@@ -26,8 +28,19 @@ public class EventPublisher : IEventPublisher
 
         try
         {
-            Console.WriteLine($"Publishing event: {@event.GetType().Name}");
-            await _messageBroker.SendAsync(@event);
+            // Configura il serializer per il polimorfismo
+            var options = new JsonSerializerOptions
+            {
+                WriteIndented = true, // Per leggibilità
+                TypeInfoResolver = new DefaultJsonTypeInfoResolver()
+            };
+
+            // Serializza l'evento e stampalo
+            var eventDetails = JsonSerializer.Serialize(@event, options);
+            Console.WriteLine($"Publishing event: {eventDetails}");
+
+            // Invia l'evento tramite il message broker
+            await _messageBroker.SendAsync(eventDetails);
         }
         catch (Exception ex)
         {

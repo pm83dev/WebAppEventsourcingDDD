@@ -30,3 +30,4 @@ C:\_PROJ_VISUALSTUDIO\_WEB\DDD+WEB\WebApplication1\WebApplication1\obj\Debug\net
 C:\_PROJ_VISUALSTUDIO\_WEB\DDD+WEB\WebApplication1\WebApplication1\obj\Debug\net8.0\WebApplication1.pdb
 C:\_PROJ_VISUALSTUDIO\_WEB\DDD+WEB\WebApplication1\WebApplication1\obj\Debug\net8.0\WebApplication1.genruntimeconfig.cache
 C:\_PROJ_VISUALSTUDIO\_WEB\DDD+WEB\WebApplication1\WebApplication1\obj\Debug\net8.0\ref\WebApplication1.dll
+C:\_PROJ_VISUALSTUDIO\_WEB\DDD+WEB\WebApplication1\WebApplication1\obj\Debug\net8.0\WebApplication1.sourcelink.json
