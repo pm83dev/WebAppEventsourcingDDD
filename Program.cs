@@ -21,8 +21,12 @@ namespace WebApplication1
             // Aggiungi i servizi al contenitore di DI
             builder.Services.AddSingleton<IEventStore, MongoDbEventStore>(); // MongoDB
             //builder.Services.AddSingleton<IEventStore,InMemoryEventStore>(); // InMemory
-            builder.Services.AddSingleton<IEventPublisher, EventPublisher>();
             builder.Services.AddSingleton<IMessageBroker, InMemoryMessageBroker>();
+            
+            //Servizi Rabbit
+            builder.Services.AddSingleton<IEventPublisher, RabbitMqEventPublisher>();
+            builder.Services.AddSingleton<IEventListener,RabbitMqEventListener>();
+            
             builder.Services.AddTransient<CommandHandler>();
             
 
@@ -34,7 +38,10 @@ namespace WebApplication1
             // Configura Swagger per la documentazione API
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-
+            
+            // Registra il servizio in background per l'ascolto
+            builder.Services.AddHostedService<RabbitMqListenerService>();
+            
             var app = builder.Build();
 
             // Configura la pipeline di richiesta HTTP

@@ -89,7 +89,9 @@ namespace WebApplication1
 
                 // Esegui la query
                 var result = await _mongoStore.Find(filter).ToListAsync();
-
+                
+                
+                
                 return result;
             }
             catch (Exception e)

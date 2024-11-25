@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Text.Json;
 using System.Threading.Tasks;
+using WebApplication1.Events;
 
 namespace WebApplication1.Controllers
 {
@@ -24,20 +26,30 @@ namespace WebApplication1.Controllers
         {
             public Guid OrderIdFilter { get; set; }
         }
-
+        
         private readonly CommandHandler _commandHandler;
-
-        public OrderController(CommandHandler handler)
+       private readonly IEventListener _eventListener;
+        public OrderController(CommandHandler handler, IEventListener eventListener)
         {
             _commandHandler = handler;
+            _eventListener = eventListener;
         }
         
+        
+        
         // API REST
-        [HttpGet("GetAllOrder")]
-        public async Task<IActionResult> IndexOrder()
+        [HttpGet("GetRabbitMessage")]
+        public IActionResult GetRabbitMessage()
         {
-            // Implementa la logica per ottenere tutti gli ordini
-            return Ok();
+            // Ottieni i messaggi dalla coda
+            var messages = _eventListener.GetMessages();
+    
+            if (messages != null && messages.Any())  // Verifica se ci sono messaggi
+            {
+                return Ok(messages);
+            }
+
+            return NoContent();  // Se non ci sono messaggi, restituisce un 204 No Content
         }
 
         [HttpPost("GetSingleOrderEvents")]
